@@ -20,7 +20,16 @@ export const createProduct = async (req, res) => {
 
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find().sort({ createdAt: -1 });
+    const { category, search } = req.query;
+    let filter = {};
+    if (category) {
+      filter.category = category;
+    }
+    if (search) {
+      filter.title = { $regex: search, $options: "i" };
+    }
+
+    const products = await Product.find(filter).sort({ createdAt: -1 });
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ message: "Error fetching products", error });
