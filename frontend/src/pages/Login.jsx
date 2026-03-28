@@ -14,8 +14,11 @@ export default function Login() {
     try {
       const response = await api.post("/user/login", formData);
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('userId', response.data.user.id);
       setMsg(response.data.message);
-      navigate("/");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);
       setMsg(error.response?.data?.message || "Login failed. Please try again.");
