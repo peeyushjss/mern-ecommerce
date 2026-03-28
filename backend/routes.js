@@ -4,6 +4,7 @@ import { createProduct, deleteProduct, getProductById, getProducts, updateProduc
 import { addToCart, clearCart, getCartById, removeFromCart, updateCartItem } from './controllers/cartController.js';
 import { get } from 'node:http';
 import { addAddress, deleteAddress, getAddresses, updateAddress } from './controllers/addressController.js';
+import { placeOrder } from './controllers/orderController.js';
 
 const router = expree.Router();
 
@@ -23,6 +24,7 @@ router.get('/user/address/:userId', getAddresses);
 router.post('/user/address', addAddress);
 router.put('/user/address/:id', updateAddress);
 router.delete('/user/address/:id', deleteAddress);
+router.post('/user/order', placeOrder);
 
 
 export default router;
